@@ -4,6 +4,8 @@ import com.example.amadeus.model.ClassStatus;
 import com.example.amadeus.service.ClassStatusService;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
+
 @Service
 public class ClassStatusServiceImpl implements ClassStatusService {
     @Override
@@ -21,6 +23,17 @@ public class ClassStatusServiceImpl implements ClassStatusService {
 
     @Override
     public double getWeekStatus(int threshold, int[][] week){
-        return 0;
+        int cancelledClasses = 0;
+        int totalClasses = week.length;
+
+        for(int[] arrivalTime : week){
+            ClassStatus classStatus = getClassStatus(threshold, arrivalTime);
+            if(classStatus.getStatus().equals("YES"))
+                cancelledClasses++;
+        }
+        DecimalFormat df = new DecimalFormat("#.##");
+        double pertangeOfCancelledClasses = Double.valueOf(df.format( ((double) cancelledClasses / totalClasses) * 100));
+
+        return pertangeOfCancelledClasses;
     }
 }
