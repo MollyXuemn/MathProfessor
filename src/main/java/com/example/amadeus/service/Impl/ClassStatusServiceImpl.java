@@ -2,12 +2,17 @@ package com.example.amadeus.service.Impl;
 
 import com.example.amadeus.model.ClassStatus;
 import com.example.amadeus.service.ClassStatusService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 @Service
 public class ClassStatusServiceImpl implements ClassStatusService {
+    private static final Logger logger = LoggerFactory.getLogger(ClassStatusServiceImpl.class);
+
     @Override
     public ClassStatus getClassStatus(int threshold, int[] times) {
         int onTimeOrEarlyStudents = 0;
@@ -18,6 +23,7 @@ public class ClassStatusServiceImpl implements ClassStatusService {
             }
         }
         String status = onTimeOrEarlyStudents >= threshold ? "NO" : "YES";
+
         return new ClassStatus(status);
     }
 
@@ -26,14 +32,18 @@ public class ClassStatusServiceImpl implements ClassStatusService {
         int cancelledClasses = 0;
         int totalClasses = week.length;
 
+        if (totalClasses == 0) {
+            return 0;
+        }
+
         for(int[] arrivalTimes : week){
             ClassStatus classStatus = getClassStatus(threshold, arrivalTimes);
             if(classStatus.getStatus().equals("YES"))
                 cancelledClasses++;
             }
         DecimalFormat df = new DecimalFormat("#.##");
-        double pertangeOfCancelledClasses = Double.valueOf(df.format( ((double) cancelledClasses / totalClasses) * 100));
+        double percentageOfCancelledClasses = Double.valueOf(df.format( ((double) cancelledClasses / totalClasses) * 100));
 
-        return pertangeOfCancelledClasses;
+        return percentageOfCancelledClasses;
     }
 }

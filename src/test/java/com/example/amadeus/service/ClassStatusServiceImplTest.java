@@ -25,6 +25,16 @@ public class ClassStatusServiceImplTest {
     }
 
     @Test
+    public void testGetClassStatusWithEmptyTimes() {
+        int threshold = 3;
+        int[] times = {};
+
+        ClassStatus classStatus = classStatusService.getClassStatus(threshold, times);
+
+        assertEquals("YES", classStatus.getStatus());
+    }
+
+    @Test
     public void testGetWeekStatus() {
         int threshold = 3;
         int[][] week = {
@@ -36,5 +46,15 @@ public class ClassStatusServiceImplTest {
         double weekStatus = classStatusService.getWeekStatus(threshold, week);
 
         assertEquals(66.67, weekStatus);
+    }
+
+    @Test
+    public void testGetWeekStatusWithEmptyWeek() {
+        int threshold = 3;
+        int[][] week = {};
+
+        double weekStatus = classStatusService.getWeekStatus(threshold, week);
+
+        assertEquals(0.0, weekStatus);
     }
 }

@@ -53,13 +53,14 @@ public class ClassStatusControllerTest {
                 {-1, 0, 1, 2, 3}
         };
 
-        when(classStatusService.getWeekStatus(threshold, week))
-                .thenReturn(66.67);
+            when(classStatusService.getWeekStatus(threshold, week))
+                    .thenReturn(66.67);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/class-status/weekly")
                         .param("threshold", String.valueOf(threshold))
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(week)))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string("66.67"));
     }
 }
