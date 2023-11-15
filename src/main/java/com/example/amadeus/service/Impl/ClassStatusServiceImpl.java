@@ -26,11 +26,11 @@ public class ClassStatusServiceImpl implements ClassStatusService {
         int cancelledClasses = 0;
         int totalClasses = week.length;
 
-        for(int[] arrivalTime : week){
-            ClassStatus classStatus = getClassStatus(threshold, arrivalTime);
+        for(int[] arrivalTimes : week){
+            ClassStatus classStatus = getClassStatus(threshold, arrivalTimes);
             if(classStatus.getStatus().equals("YES"))
                 cancelledClasses++;
-        }
+            }
         DecimalFormat df = new DecimalFormat("#.##");
         double pertangeOfCancelledClasses = Double.valueOf(df.format( ((double) cancelledClasses / totalClasses) * 100));
 

@@ -1,16 +1,19 @@
 package com.example.amadeus.controller;
 
 import com.example.amadeus.model.ClassStatus;
-import com.example.amadeus.service.ClassStatusService;
+import com.example.amadeus.service.Impl.ClassStatusServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/class-status")
 public class ClassStatusController {
+    private ClassStatusServiceImpl classStatusService;
 
     @Autowired
-    private ClassStatusService classStatusService;
+    public ClassStatusController(ClassStatusServiceImpl classStatusService) {
+        this.classStatusService = classStatusService;
+    }
 
     @PostMapping("/single")
     public ClassStatus getClassStatus(@RequestParam int threshold, @RequestBody int[] times) {
