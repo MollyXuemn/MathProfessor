@@ -2,16 +2,12 @@ package com.example.amadeus.service.Impl;
 
 import com.example.amadeus.model.ClassStatus;
 import com.example.amadeus.service.ClassStatusService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
-import java.util.Arrays;
 
 @Service
 public class ClassStatusServiceImpl implements ClassStatusService {
-    private static final Logger logger = LoggerFactory.getLogger(ClassStatusServiceImpl.class);
 
     @Override
     public ClassStatus getClassStatus(int threshold, int[] times) {

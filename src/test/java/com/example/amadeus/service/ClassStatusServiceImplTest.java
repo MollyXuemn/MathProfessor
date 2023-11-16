@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ClassStatusServiceImplTest {
 
     @Autowired
-    private ClassStatusServiceImpl classStatusService;
+    private ClassStatusService classStatusService;
 
     @Test
     public void testGetClassStatus() {
