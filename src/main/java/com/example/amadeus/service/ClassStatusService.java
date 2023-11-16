@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 public interface ClassStatusService {
     ClassStatus getClassStatus(int threshold, int[] times);
-    double getWeekStatus(int threshold, int[][] week);
+    String getWeekStatus(int threshold, int[][] week);
 }

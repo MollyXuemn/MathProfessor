@@ -1,7 +1,6 @@
 package com.example.amadeus.controller;
 
 import com.example.amadeus.controller.dto.timesDTO;
-import com.example.amadeus.controller.dto.weekDTO;
 import com.example.amadeus.model.ClassStatus;
 import com.example.amadeus.service.ClassStatusService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,8 +10,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;

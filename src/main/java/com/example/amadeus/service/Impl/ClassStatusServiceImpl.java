@@ -24,12 +24,12 @@ public class ClassStatusServiceImpl implements ClassStatusService {
     }
 
     @Override
-    public double getWeekStatus(int threshold, int[][] week){
+    public String getWeekStatus(int threshold, int[][] week){
         int cancelledClasses = 0;
         int totalClasses = week.length;
 
         if (totalClasses == 0) {
-            return 0;
+            return "0.0%";
         }
 
         for(int[] arrivalTimes : week){
@@ -37,9 +37,13 @@ public class ClassStatusServiceImpl implements ClassStatusService {
             if(classStatus.getStatus().equals("YES"))
                 cancelledClasses++;
             }
-        DecimalFormat df = new DecimalFormat("#.##");
-        double percentageOfCancelledClasses = Double.valueOf(df.format( ((double) cancelledClasses / totalClasses) * 100));
 
-        return percentageOfCancelledClasses;
+        double percentageOfCancelledClasses = ((double) cancelledClasses / totalClasses) * 100;
+
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        String formattedPercentage = df.format(percentageOfCancelledClasses) + "%";
+
+        return formattedPercentage;
     }
 }

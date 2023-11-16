@@ -43,9 +43,9 @@ public class ClassStatusServiceImplTest {
                 {-1, 0, 1, 2, 3}
         };
 
-        double weekStatus = classStatusService.getWeekStatus(threshold, week);
+        String weekStatus = classStatusService.getWeekStatus(threshold, week);
 
-        assertEquals(66.67, weekStatus);
+        assertEquals("66.67%", weekStatus);
     }
 
     @Test
@@ -53,8 +53,8 @@ public class ClassStatusServiceImplTest {
         int threshold = 3;
         int[][] week = {};
 
-        double weekStatus = classStatusService.getWeekStatus(threshold, week);
+        String weekStatus = classStatusService.getWeekStatus(threshold, week);
 
-        assertEquals(0.0, weekStatus);
+        assertEquals("0.0%", weekStatus);
     }
 }

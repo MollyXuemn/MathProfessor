@@ -23,7 +23,7 @@ public class ClassStatusController {
     }
 
     @PostMapping("/weekly")
-    public double getWeekStatus(@RequestParam int threshold, @RequestBody weekDTO weekData) {
+    public String getWeekStatus(@RequestParam int threshold, @RequestBody weekDTO weekData) {
         return classStatusService.getWeekStatus(threshold, weekData.getWeek());
     }
 }
