@@ -5,6 +5,7 @@ import com.example.amadeus.service.ClassStatusService;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 @Service
 public class ClassStatusServiceImpl implements ClassStatusService {
@@ -15,16 +16,12 @@ public class ClassStatusServiceImpl implements ClassStatusService {
      */
     @Override
     public ClassStatus getClassStatus(int threshold, int[] times) {
-        int onTimeOrEarlyStudents = 0;
+        int onTimeOrEarlyStudents;
 
-        for(int arrivalTime :times){
-            if(arrivalTime <= 0){
-                onTimeOrEarlyStudents++;
-                if(onTimeOrEarlyStudents>= threshold){
-                    return new ClassStatus("No");
-                }
-            }
-        }
+        onTimeOrEarlyStudents = (int)Arrays.stream(times)
+                .filter(arrivalTime -> arrivalTime <= 0)
+                .limit(threshold)
+                .count();
 
         String status = onTimeOrEarlyStudents >= threshold ? "NO" : "YES";
 
@@ -38,18 +35,16 @@ public class ClassStatusServiceImpl implements ClassStatusService {
      */
     @Override
     public String getWeekStatus(int threshold, int[][] week){
-        int cancelledClasses = 0;
+        int cancelledClasses;
         int totalClasses = week.length;
 
         if (totalClasses == 0) {
             return "0.0%";
         }
 
-        for(int[] arrivalTimes : week){
-            ClassStatus classStatus = getClassStatus(threshold, arrivalTimes);
-            if(classStatus.getStatus().equals("YES"))
-                cancelledClasses++;
-            }
+        cancelledClasses = Arrays.stream(week)
+                .filter(arrivalTimes -> getClassStatus(threshold, arrivalTimes).equals("YES"))
+                .toArray().length;
 
         double percentageOfCancelledClasses = ((double) cancelledClasses / totalClasses) * 100;
 
